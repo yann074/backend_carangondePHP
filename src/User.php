@@ -32,7 +32,9 @@ class User {
         return false;
 
 
-    }
+    } 
+    
+        
     public function loginEntrar() {
         $sql = "SELECT * FROM " . $this->table . " WHERE email = ?";
         $stmt = $this->conn->prepare($sql);
@@ -50,5 +52,6 @@ class User {
 
         return false;
     }
+    
 }
 
