@@ -52,6 +52,22 @@ class User {
 
         return false;
     }
-    
-}
 
+
+    public function UsuariosCadastradosAdm(){
+        $sql = "SELECT name, email, cpf FROM " . $this->table;
+        $stmt = $this->conn->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if($result->num_rows > 0){
+            $users = [];
+            while($row = $result->fetch_assoc()){
+            $users[] = $row;
+            }
+            return $users;
+        }
+        return false;
+    }
+}
+    
