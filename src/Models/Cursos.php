@@ -15,15 +15,15 @@ class Cursos {
 
     public function createCoursers() {
         $query = 'INSERT INTO ' . $this->table . ' (name_c, desc_c, temp_c) VALUES (?, ?, ?)';
-        $stmt = $this->conn->prepare($query);
+        $conn = $this->conn->prepare($query);
 
-        $stmt->bind_param('sss', $this->name_c, $this->desc_c, $this->temp_c);
+        $conn->bind_param('sss', $this->name_c, $this->desc_c, $this->temp_c);
 
-        if ($stmt->execute()) {
+        if ($conn->execute()) {
             return true;
         }
 
-        printf("Error: %s.\n", $stmt->error);
+        printf("Error: %s.\n", $conn->error);
 
         return false;
     }

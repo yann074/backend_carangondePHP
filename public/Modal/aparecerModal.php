@@ -18,4 +18,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' || $_SERVER['REQUEST_METHOD'] === 'POST
 } else {
     echo json_encode(['message' => 'Método não permitido']);
 }
-
