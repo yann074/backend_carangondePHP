@@ -2,21 +2,19 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
-require '../vendor/autoload.php';
-include("../config/Database.php");
-include("../src/Models/User.php");
-include ("../src/Controllers/UserController.php");
+include_once '../../config/Database.php';
+include_once '../../src/Controllers/UserController.php';
+include_once '../../src/Models/User.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$userController = new UserController($db);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userController->register();
+$user = new User($db);
+if ($_SERVER['REQUEST_METHOD'] === 'GET' || $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $user->UsuariosCadastradosAdm(); 
 } else {
     echo json_encode(['message' => 'Método não permitido']);
 }

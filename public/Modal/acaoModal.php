@@ -2,22 +2,20 @@
 
 header('Access-Control-Allow-Origin: *');
 header('Content-Type: application/json');
-header('Access-Control-Allow-Methods: POST');
+header('Access-Control-Allow-Methods: POST, GET, OPTIONS');
 header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type, Access-Control-Allow-Methods, Authorization, X-Requested-With');
 
-require '../vendor/autoload.php';
-include("../config/Database.php");
-include("../src/Models/User.php");
-include ("../src/Controllers/UserController.php");
+include_once '../../config/Database.php';
+include_once '../../src/Controllers/CursosController.php';
+include_once '../../src/Models/Cursos.php';
 
 $database = new Database();
 $db = $database->connect();
 
-$userController = new UserController($db);
+$cursoController = new CursosController($db);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $userController->register();
+    $cursoController->registerModal();
 } else {
     echo json_encode(['message' => 'Método não permitido']);
 }
-

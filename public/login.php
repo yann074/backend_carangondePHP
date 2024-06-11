@@ -7,17 +7,14 @@ header('Access-Control-Allow-Headers: Access-Control-Allow-Headers, Content-Type
 
 require '../vendor/autoload.php';
 include("../config/Database.php");
-include("../src/User.php");
-include ("../src/UserController.php");
+include("../src/Models/User.php");
+include ("../src/Controllers/UserController.php");
 
-// Conexão com o banco de dados
 $database = new Database();
 $db = $database->connect();
 
-// Instância do controlador de usuário
 $userController = new UserController($db);
 
-// Lidar com a requisição POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $userController->login();
 } else {

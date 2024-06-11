@@ -15,14 +15,22 @@ class User {
         $this->conn = $db;
     }
 
-    public function create() {
+    public function create() { 
+
+        $sql_verificar = "SELECT * FROM " . $this->table . " WHERE email = ?";
+        $stmt_verificar = $this->conn->prepare($sql_verificar);
+        $stmt_verificar->bind_param('s', $this->email);
+        $stmt_verificar->execute();
+        $result = $stmt_verificar->get_result();
+        
+        if($result -> num_rows > 0){
+            return false;
+        }
+        
         $query = 'INSERT INTO ' . $this->table . ' (name, email, password, birthday, cpf) VALUES (?, ?, ?, ?, ?)';
-
         $stmt = $this->conn->prepare($query);
-
         // Adicionando o cpf no bind_param
         $stmt->bind_param('sssss', $this->name, $this->email, $this->password, $this->birthday, $this->cpf);
-
         if ($stmt->execute()) {
             return true;
         }
@@ -53,21 +61,22 @@ class User {
         return false;
     }
 
-
-    public function UsuariosCadastradosAdm(){
+    public function UsuariosCadastradosAdm() {
         $sql = "SELECT name, email, cpf FROM " . $this->table;
-        $stmt = $this->conn->prepare($sql);
-        $stmt->execute();
-        $result = $stmt->get_result();
-
+        $result = $this->conn->query($sql);
+        
         if($result->num_rows > 0){
             $users = [];
             while($row = $result->fetch_assoc()){
-            $users[] = $row;
+                $users[] = $row;
             }
             return $users;
         }
         return false;
     }
+    
+    
+    
+
 }
     
