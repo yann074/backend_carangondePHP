@@ -28,11 +28,9 @@ class UserController {
             'password' => '1234'
         ];
 
-
         $user = new User($this->conn);
         $user->email = $data->email;
         $user->password = $data->password;
-
 
         if ($user->loginEntrar() ) {
             echo json_encode(['message' => 'Email e senha corretos']);
@@ -40,11 +38,12 @@ class UserController {
             if($adm){
                 echo json_encode(['message' => 'Email e senha corretos adm']);
             }
-        } 
-
             else {
                 echo json_encode(['message' => 'Email ou senha incorretos']);
             }
+        } 
+
+            
 
         }
     

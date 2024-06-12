@@ -1,6 +1,6 @@
 <?php
 
-class Cursos {
+class Cursos extends User{
     private $conn;
     private $table = 'coursers';
 
