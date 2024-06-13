@@ -42,23 +42,16 @@ class UserController {
                 echo json_encode(['message' => 'Email ou senha incorretos']);
             }
         } 
-
-            
-
-        }
-    
-
+    }
     
     public function AparecerUsuario(){
-
         $user = new User($this->conn);
         $users = $user->UsuariosCadastradosAdm();
-
-            if ($users) {
-                echo json_encode(['message' => 'Dados recebidos com sucesso', 'data' => $users]);
-
-            } else {
-                    echo json_encode(['message' => 'Nenhum usuário encontrado']);
-                }
+    
+        if ($users) {
+            echo json_encode(['message' => 'dados recebidos com sucesso', 'data' => $users]);
+        } else {
+            echo json_encode(['message' => 'Nenhum user encontrado']);
+        }
     }
 }

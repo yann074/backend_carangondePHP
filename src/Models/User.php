@@ -1,4 +1,5 @@
 <?php
+
 class User {
     private $conn;
     private $table = 'users';
@@ -11,6 +12,7 @@ class User {
     public function __construct($db) {
         $this->conn = $db;
     }
+    
     public function create() {
         $query = 'INSERT INTO ' . $this->table . ' (name, email, password, birthday, cpf) VALUES (?, ?, ?, ?, ?)';
         $conn = $this->conn->prepare($query);
@@ -22,7 +24,6 @@ class User {
         return false;
     } 
     
-        
     public function loginEntrar() {
         $sql = "SELECT * FROM " . $this->table . " WHERE email = ?";
         $conn = $this->conn->prepare($sql);
@@ -40,23 +41,17 @@ class User {
         return false;
     }
 
-
-
-
     public function UsuariosCadastradosAdm(){
         $sql = "SELECT name, email, cpf FROM " . $this->table;
-        $conn = $this->conn->prepare($sql);
-        $conn->execute();
-        $result = $conn->get_result();
-
+        $result = $this->conn->query($sql);
+        
         if($result->num_rows > 0){
             $users = [];
             while($row = $result->fetch_assoc()){
-            $users[] = $row;
+                $users[] = $row;
             }
             return $users;
         }
         return false;
     }
 }
-

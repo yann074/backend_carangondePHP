@@ -1,6 +1,6 @@
 <?php
 
-class Cursos extends User{
+class Cursos {
     private $conn;
     private $table = 'coursers';
 
@@ -14,6 +14,8 @@ class Cursos extends User{
     }
 
     public function createCoursers() {
+
+
         $query = 'INSERT INTO ' . $this->table . ' (name_c, desc_c, temp_c) VALUES (?, ?, ?)';
         $conn = $this->conn->prepare($query);
 
